@@ -3,7 +3,7 @@ options:
 
 input:
  novaSDS011:
-  module: logagent-input-nova-sds011
+  module: logagent-input-novaSDS011
   # com port assigned to Nova SDA011 device
   comPort: /dev/tty.wchusbserial1410
   # working period of device, higher values increase i

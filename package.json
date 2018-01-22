@@ -1,5 +1,5 @@
 {
-  "name": "logagent-input-nova-sds011",
+  "name": "logagent-input-novaSDS011",
   "version": "1.0.1",
   "description": "Logagent input plugin for Nova SDS011 dust senor",
   "main": "index.js",
