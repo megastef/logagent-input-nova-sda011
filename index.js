@@ -27,7 +27,7 @@ function NovaSDS011 (config, eventEmitter) {
       address: config.location.address || 'street, city, country'
     }
   }
-  eventEmitter.emit('location', this.location)
+  eventEmitter.emit('location', pos)
 }
 NovaSDS011.prototype.start = function () {
   var self = this
@@ -54,7 +54,6 @@ NovaSDS011.prototype.start = function () {
       })
     })
     .catch(() => {
-
     })
 }
 
@@ -68,7 +67,13 @@ module.exports = NovaSDS011
 function test () {
   var ee = new EE()
   var p = new NovaSDS011({
-    comPort: '/dev/cu.wchusbserial1420'
+    comPort: '/dev/tty.wchusbserial1410',
+    workingPeriod: 0,
+    location: {
+      lat: 6.831421538243294,
+      lon: 49.53907614593099,
+      address: 'Street, Weiskirchen, Germany'
+    }
   }, ee)
   ee.on('data.raw', console.log)
   p.start()
