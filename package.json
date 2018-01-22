@@ -1,7 +1,7 @@
 {
   "name": "logagent-input-novaSDS011",
   "version": "1.0.1",
-  "description": "Logagent input plugin for Nova SDS011 dust senor",
+  "description": "Logagent input plugin for Nova SDS011 dust sensor",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
