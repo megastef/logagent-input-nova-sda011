@@ -24,7 +24,6 @@
   "homepage": "https://github.com/megastef/logagent-input-nova-sds011#readme",
   "dependencies": {
     "fast-safe-stringify": "^2.0.2",
-    "sds011-wrapper": "^1.0.0",
-    "stackman": "^3.0.0"
+    "sds011-wrapper": "^1.0.0"
   }
 }
