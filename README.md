@@ -37,7 +37,20 @@ input:
 
 output: 
   stdout: yaml
-  
+  # store senor data in Sematext Cloud
+  sematext-cloud:
+    module: elasticsearch
+    index:  YOUR_LOGSENE_TOKEN
+  # share sensor data via MQTT
+  mqtt:
+    module: output-mqtt
+    url: mqtt://test.mosquitto.org
+    topic: sensor-data
+    debug: false
+    # optional filter settings matching data field with regular expressions
+    filter: 
+      field: logSource
+      match: Nova
 
 ```
 
