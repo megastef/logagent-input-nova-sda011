@@ -49,6 +49,9 @@ NovaSDS011.prototype.start = function () {
           data.city = self.location.city
           data.country = self.location.country
         }
+        if (self.config.tags) {
+          data.tags = self.config.tags
+        }
         data.logSource = context.sourceName
         eventEmitter.emit('data.raw', stringify(data), context)
       })
@@ -59,7 +62,9 @@ NovaSDS011.prototype.start = function () {
 
 NovaSDS011.prototype.stop = function (cb) {
   sensor.close()
-  cb()
+  if (cb) {
+    cb()
+  }
 }
 
 module.exports = NovaSDS011
@@ -73,6 +78,9 @@ function test () {
       lat: 6.831421538243294,
       lon: 49.53907614593099,
       address: 'Street, Weiskirchen, Germany'
+    },
+    tags: {
+      environment: 'indoors'
     }
   }, ee)
   ee.on('data.raw', console.log)
