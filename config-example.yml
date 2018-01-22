@@ -1,0 +1,61 @@
+options: 
+  suppress: false
+
+input:
+ novaSDS011:
+  module: logagent-input-nova-sds011
+  # com port assigned to Nova SDA011 device
+  comPort: /dev/tty.wchusbserial1410
+  # working period of device, higher values increase i
+  # lifetime of the sensor, the setting is stored in the device
+  # 0 - disabled measurement pauses
+  # 1 - measures every minute
+  # N - measures every N minutes
+  workingPeriod: 1 
+  location: 
+    lat: 6.831421538243294,
+    lon: 49.53907614593099,
+    address: 'Street, Weiskirchen, Germany'
+
+ track-apple-devices: 
+    module: input-apple-device-finder
+    appleId: your-email@icloud.com
+    # Note locating phones might consume more energy on the devices  
+    # Query Apple API every N minutes. The minimum value is 1 minute.
+    interval: 10 
+    # Regular expressions to filter devices by device.name or device.deviceDisplayName
+    # blacklist - ignore devices matching following regex, case sensitive
+    # ignoreDeviceName: 'iPhone.4'
+    # whitelist - track only devices matching following expression
+    filterDeviceName: 'Your.iPhone7'
+    # verbose output to console for filter matching
+    debug: false
+    # suppress log event, just share location for other plugins
+    emitOnlyLocationEvent: true
+
+outputFilter:
+  - module: !!js/function >
+      function (context, config, eventEmitter, data, callback)  {
+        if (data.PM10 && data.PM10 > 0) {
+            data.PM25ratio = (data['PM2.5']/data.PM10) * 100
+        }
+        callback(null, data)
+      }
+
+output: 
+  stdout: false
+  # share sensor data via MQTT
+  mqtt:
+    module: output-mqtt
+    url: mqtt://test.mosquitto.org
+    topic: sensor-data
+    debug: false
+    # optional filter settings matching data field with regular expressions
+    filter: 
+      field: logSource
+      match: Nova
+  # store senor data in Sematext Cloud
+  sematext-cloud:
+    module: elasticsearch
+    index:  YOUR_LOGSENE_TOKEN
+
