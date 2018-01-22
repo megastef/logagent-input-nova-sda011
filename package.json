@@ -1,6 +1,6 @@
 {
   "name": "logagent-input-nova-sds011",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Logagent input plugin for Nova SDS011 dust senor",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/megastef/logagent-input-nova-sds011#readme",
   "dependencies": {
     "fast-safe-stringify": "^2.0.2",
+    "npm": "^5.6.0",
     "sds011-wrapper": "^1.0.0"
   }
 }
