@@ -2,7 +2,7 @@
   "name": "logagent-input-novaSDS011",
   "version": "1.0.3",
   "description": "Logagent input plugin for Nova SDS011 dust sensor",
-  "main": "index.js",
+  "main": "nova.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
