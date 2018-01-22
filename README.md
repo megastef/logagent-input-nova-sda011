@@ -24,7 +24,7 @@ options:
 
 input:
   novaSDS011:
-    module: input-nova-sds011
+    module: logagent-input-nova-sds011
     # COM port for the USB to serial interface
     comPort: /dev/cu.wchusbserialfa1220
     # optional static sensor location
