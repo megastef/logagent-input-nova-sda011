@@ -23,17 +23,17 @@ options:
   includeOriginalLine: false
 
 input:
- novaSDS011:
- 	module: input-nova-sds011
- 	# COM port for the USB to serial interface
- 	comPort: /dev/cu.wchusbserialfa1220
- 	# optional static sensor location
- 	location:  
- 	  lat: 49.0
- 	  lon: 7.0
- 	  address: "My Street, My City, My Country"
- 	tags: 
- 	  environment: indoors
+  novaSDS011:
+    module: input-nova-sds011
+    # COM port for the USB to serial interface
+    comPort: /dev/cu.wchusbserialfa1220
+    # optional static sensor location
+    location:  
+      lat: 49.0
+      lon: 7.0
+      address: "My Street, My City, My Country"
+    tags: 
+      environment: indoors
 
 output: 
   stdout: yaml
