@@ -1,6 +1,6 @@
 {
   "name": "logagent-input-novaSDS011",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Logagent input plugin for Nova SDS011 dust sensor",
   "main": "index.js",
   "scripts": {
