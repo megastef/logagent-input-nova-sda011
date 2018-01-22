@@ -22,7 +22,7 @@ function NovaSDS011 (config, eventEmitter) {
   if (config.location) {
     var pos = {
       geoip: {
-        location: [ (config.location.lat || 0), (config.location.lon || 0) ]
+        location: [(config.location.lon || 0), (config.location.lat || 0)]
       },
       address: config.location.address || 'street, city, country'
     }
