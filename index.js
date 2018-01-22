@@ -10,17 +10,25 @@ function NovaSDS011 (config, eventEmitter) {
   // listen to location events from apple-device-tracker plugin
   eventEmitter.on('location', function (location) {
     this.location = location
+    if (location.address) {
+      var tmp = location.address.split(', ')
+      if (tmp.length === 3) {
+        location.street = tmp[0]
+        location.city = tmp[1]
+        location.country = tmp[2]
+      }
+    }
   }.bind(this))
   if (config.location) {
-    this.location = {
+    var pos = {
       geoip: {
-        location: [config.location.lat, config.location.lon]
+        location: [ (config.location.lat || 0), (config.location.lon || 0) ]
       },
-      address: config.location.address
+      address: config.location.address || 'street, city, country'
     }
   }
+  eventEmitter.emit('location', this.location)
 }
-
 NovaSDS011.prototype.start = function () {
   var self = this
   var context = {name: 'input.NovaSDS011', sourceName: this.config.sourceName || 'NovaSDS011'}
@@ -28,15 +36,18 @@ NovaSDS011.prototype.start = function () {
   try {
     sensor = new SDS011Wrapper(this.config.comPort || '/dev/cu.wchusbserialfa1220')
   } catch (err) {
-    console.error(error.toString())
+    console.error(err.toString())
     throw err
   }
   Promise
-    .all([sensor.setReportingMode('active'), sensor.setWorkingPeriod(0)])
+    .all([sensor.setReportingMode('active'), sensor.setWorkingPeriod(self.config.workingPeriod || 1)])
     .then(() => {
       sensor.on('measure', (data) => {
         if (self.location && self.location.geoip) {
           data.geoip = self.location.geoip
+          data.address = self.location.address
+          data.city = self.location.city
+          data.country = self.location.country
         }
         data.logSource = context.sourceName
         eventEmitter.emit('data.raw', stringify(data), context)
@@ -63,7 +74,7 @@ function test () {
   p.start()
   process.on('beforeExit', function () {
     p.stop(function () {
-      console.log('stop Nova SDS011 sensor')
+      console.log('Stop Nova SDS011 sensor')
     })
   })
   setTimeout(p.stop, 60000)
