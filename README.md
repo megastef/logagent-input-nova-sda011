@@ -40,6 +40,7 @@ output:
   # store senor data in Sematext Cloud
   sematext-cloud:
     module: elasticsearch
+    url: https://logsene-receiver.sematext.com
     index:  YOUR_LOGSENE_TOKEN
   # share sensor data via MQTT
   mqtt:
